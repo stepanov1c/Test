@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Автоматический переключатель изображений</title>
+<!--Указываю тип кодировки -->
+  <meta charset="utf-8">
+<!-- Строка ниже позволяет сделать веб-страницу адаптивной-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/*Описываю внешний вид каркаса, основы для будущего слайдера */
+#slides{
+ position: relative;
+ height: 415px;
+  width: 100%;
+ padding: 0px;
+ list-style-type: none;
+  box-shadow: 0 0 7px #010, 0 0 10px blue, 0 0 15px #010, 0 0 35px #010;
+}
+/* Редактирую отображение картинок*/
+img {
+  width: auto;
+  height: 390px;
+  padding: 13px;
+}
+/*Указываю, что содержимое пунктов списка будет отображаться по центру элемента-родителя, т.е. в данном случае по центру элемента ul - основы для слайдов */
+li {
+  text-align: center;
+}
+/*Описываю внешний вид самих слайдов */
+.slide{
+ position: absolute;
+   opacity: 0;
+   top: 0px;
+ left: 0px;
+ height: 100%;
+   z-index: 3;
+   width: 100%;
+background: blue;
+ -moz-transition: opacity 1.5s;
+ transition: opacity 1.5s;
+   -webkit-transition: opacity 1.5s;
+}
+/*При отображении объект становится видимым и выдвигается на передний план*/
+.showing{
+ opacity: 1;
+ z-index: 4;
+}
+</style>
+</head>
+<body>
+<!--Создаю список из четырех фотографий. Для будущей обработки данного кода в скрипте я прописал наименования классов. То изображение, которое будет отображаться на экране, отмечается классом "showing" -->
+<ul id="slides">
+ <li class="slide showing"><img src ="http://www.sonarium.ru/wp-content/uploads/2013/07/sobaka-400x300.jpeg"></li>
+ <li class="slide"></li>
+ <li class="slide"><img src ="http://malteze.net/images/sampledata/poroda/2014/1sr_54463893746575.jpg"></li>
+ <li class="slide"><img src ="http://all-terriers.ru/_nw/8/96664315.jpg"></li>
+</ul>
+<!-- Создаю скрипт, который переключает фотографии. Ниже я подробнее опишу его работу. Кстати, его вы можете внедрить в любую часть программы.-->
+<script>
+var MySlider = document.querySelectorAll('#slides .slide');
+var currentPicture = 0;
+var IntervalForChange = setInterval(nextSlide,2700);
+ 
+function nextSlide(){
+ MySlider[currentPicture].className = 'slide';
+ currentPicture = (currentPicture+1)%MySlider.length;
+ MySlider[currentPicture].className = 'slide showing';
+}
+</script>
+ 
+</body>
+</html>
